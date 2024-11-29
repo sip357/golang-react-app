@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ruler: 16px;
+  --color-red: #AE1100;
+  --color-bg: #002244;
+  --color-shadow: #BABECC;
+  --color-white: #FFF;
+}
+
+
+body, html {
+  background-color: var(--color-bg);
+}
+
+body, button {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+    color: white;
+}
+
+input, textarea {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  color: black;
+}
+
+h1 {
+  color: var(--color-shadow);
+  text-align: center;
+  padding: var(--ruler) 0;
+}
