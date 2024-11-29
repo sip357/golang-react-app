@@ -34,3 +34,7 @@ h1 {
   text-align: center;
   padding: var(--ruler) 0;
 }
+
+.navBoxShadow {
+  box-shadow: 3px 0 8px 0 rgba(0, 0, 0, 0.5);
+}

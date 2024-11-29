@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import menuData from "./menuData"; // Adjust the path as needed
+import menuData from "./menuData";
 
 export default function ResponsiveNavbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -9,7 +9,7 @@ export default function ResponsiveNavbar() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative navBoxShadow">
       {/* Toggle Button for Small Screens */}
       <button
         onClick={toggleSidebar}
@@ -20,7 +20,7 @@ export default function ResponsiveNavbar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 w-1/5 h-full bg-black text-white border-r-2 border-gray-400 flex flex-col justify-center items-center space-y-4
+        className={`fixed top-0 left-0 w-1/5 h-full bg-black text-white navBoxShadow flex flex-col justify-center items-center space-y-4
           ${isSidebarOpen ? "block" : "hidden"} sm:block`}
       >
         {menuData.map((item, index) => (
