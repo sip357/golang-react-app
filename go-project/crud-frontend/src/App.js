@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route} from "react-router-dom";
 import TaskList from "./components/TaskList";
 import CreateTask from "./components/CreateTask";
@@ -6,7 +6,6 @@ import CreateAccount from "./components/signup";
 import NavBar from "./components/nav/navbar";
 
 const App = () => {
-
   return (
     <div className="flex">
       <NavBar/>

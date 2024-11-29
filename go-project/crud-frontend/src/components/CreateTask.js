@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { createTask } from "../api";
+import { useNavigate} from "react-router-dom";
 
 const CreateTask = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -11,6 +13,7 @@ const CreateTask = () => {
     await createTask(task);
     setTitle("");
     setContent("");
+    navigate("/");
   };
 
   return (
