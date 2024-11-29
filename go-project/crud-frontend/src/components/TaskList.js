@@ -23,7 +23,7 @@ const TaskList = () => {
   };
 
   const handleEditTask = async (updatedTask) => {
-    await updateTask(updatedTask);
+    await updateTask(updatedTask); // Call API to update task
     console.log("Edited Task:", updatedTask);
   };
 

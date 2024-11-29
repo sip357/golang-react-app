@@ -9,6 +9,7 @@ import (
 	services "go-project/go-backend/task-service" //Task Services
 )
 
+// Edit and update task
 func UpdateTask(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("UpdateTask handler called")
 	if r.Method != http.MethodPut {

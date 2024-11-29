@@ -9,12 +9,27 @@ const CreateTask = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     const task = { title, content };
-    await createTask(task);
-    setTitle("");
-    setContent("");
-    navigate("/");
+    try {
+      const response = await createTask(task); // API call to create task
+      
+      // Check if response indicates success
+      if (response.status === 201) {
+        // Task successfully created
+        alert("Task created successfully!");
+        setTitle("");
+        setContent("");
+        navigate("/");
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      alert("Failed to create task. Please try again.");
+    }
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>

@@ -16,6 +16,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// CreateUser allows user to sign up
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("CreateUser handler called")
 	if r.Method != http.MethodPost {

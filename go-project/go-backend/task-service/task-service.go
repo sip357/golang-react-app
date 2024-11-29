@@ -8,14 +8,14 @@ import (
 )
 
 var (
-	tasks  = []models.Task{}
+	tasks  = []models.Task{} //Array of Tasks
 	nextID = 1
 	mu     sync.Mutex
 )
 
 func AddTaskService(task models.Task) models.Task {
 	mu.Lock()
-	defer mu.Unlock()
+	defer mu.Unlock() //Release resource at the end of function
 
 	task.ID = nextID
 	nextID++
@@ -57,5 +57,3 @@ func DeleteTaskService(id int) error {
 
 	return fmt.Errorf("task with ID %d not found", id)
 }
-
-// Add UpdateTask and DeleteTask functions as needed.

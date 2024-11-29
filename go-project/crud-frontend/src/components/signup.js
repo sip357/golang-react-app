@@ -9,10 +9,21 @@ const CreateAccount = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = { username, email, password };
-    await signUp(user);
-    setUsername("");
-    setEmail("");
-    setPassword("");
+    const response = await signUp(user); //Use API to create user
+
+    try {
+      if(response.status === 201) {
+        alert("User created successfully");
+        setUsername(""); // Reset all states
+        setEmail("");
+        setPassword("");
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("An error occured:" `${error}`)
+      alert("Failed to create user. Please try again.")
+    }
   };
 
   return (
