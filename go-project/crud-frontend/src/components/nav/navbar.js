@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import menuData from "./menuData";
 
+
 export default function ResponsiveNavbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -9,7 +10,7 @@ export default function ResponsiveNavbar() {
   };
 
   return (
-    <div className="relative navBoxShadow">
+    <div className="relative">
       {/* Toggle Button for Small Screens */}
       <button
         onClick={toggleSidebar}
@@ -20,11 +21,11 @@ export default function ResponsiveNavbar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 w-1/5 h-full bg-black text-white navBoxShadow flex flex-col justify-center items-center space-y-4
+        className={`fixed top-0 left-0 w-1/5 h-full bg-black text-white navBoxShadow flex flex-col items-center space-y-4
           ${isSidebarOpen ? "block" : "hidden"} sm:block`}
       >
         {menuData.map((item, index) => (
-          <div key={index} className="flex items-center space-x-2">
+          <div key={index} className="flex items-center w-full space-x-2">
             <span>{item.icon}</span>
             <a href={item.href} className="text-lg">
               {item.name}
