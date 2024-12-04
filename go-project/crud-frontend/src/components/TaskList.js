@@ -1,18 +1,38 @@
 import React, { useState, useEffect } from "react";
 import TaskCard from "../components/taskUI/taskDisplay"; // Import the TaskCard component
-import { fetchTasks, deleteTask, updateTask } from "../api"; // Import necessary API functions
+import { fetchTasks, deleteTask, updateTask, protectedRoute } from "../api"; // Import necessary API functions
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
 
-  // Fetch tasks on component mount
+  protectedRoute()
+    .then(response => {
+      if (response.ok) {
+        console.log('Cookie is valid');
+      } else {
+        console.log('Cookie is not valid or expired');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  
+
   useEffect(() => {
     const getTasks = async () => {
-      const data = await fetchTasks(); // Fetch tasks from API
-      setTasks(data);
+      try {
+        const data = await fetchTasks(); // Fetch tasks from API
+          setTasks(data);
+      } catch (error) {
+        // Catch any errors during the fetch operation
+        console.error("Error fetching tasks:", error);
+        alert("An error occurred while fetching tasks!");
+      }
     };
+  
     getTasks();
   }, []);
+  
 
   // Handle task deletion
   const handleDelete = async (id) => {

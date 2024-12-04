@@ -3,12 +3,13 @@ package services
 import (
 	"errors"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var jwtSecret = []byte("your-secret-key") // Replace with an environment variable in production!
+var jwtSecret = []byte(os.Getenv("JWT_SECRET")) // Replace with an environment variable in production!
 
 // GenerateJWT generates a JWT token for a user
 func GenerateJWT(userID string) (string, error) {

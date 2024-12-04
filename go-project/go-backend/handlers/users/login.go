@@ -52,7 +52,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer client.Disconnect(context.TODO())
 
-	coll := client.Database("users").Collection("existing_users")
+	coll := client.Database(os.Getenv("USER_DB")).Collection(os.Getenv("USER_COLLECTION"))
 
 	// Find the user by username
 	filter := bson.D{{Key: "username", Value: user.Username}}
@@ -89,6 +89,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		Secure:   true, // Enable HTTPS in production
 		Path:     "/",
 		Expires:  time.Now().Add(1 * time.Hour),
+		SameSite: http.SameSiteNoneMode,
 	}
 	http.SetCookie(w, cookie)
 

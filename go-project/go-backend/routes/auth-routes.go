@@ -1,7 +1,8 @@
+// Routes for authenticated user
 package routes
 
 import (
-	"go-project/go-backend/handlers/users"
+	auth "go-project/go-backend/handlers/authOps"
 	"net/http"
 
 	"github.com/go-chi/chi/v5" // Chi Router package
@@ -9,7 +10,7 @@ import (
 )
 
 // UserRoutes with CORS middleware
-func UserRoutes() http.Handler {
+func AuthRoutes() http.Handler {
 	// Create a new Chi router
 	r := chi.NewRouter()
 
@@ -25,8 +26,8 @@ func UserRoutes() http.Handler {
 	r.Use(c.Handler)
 
 	// Define routes with their respective handlers
-	r.Post("/users/signUp", users.CreateUser)
-	r.Post("/users/login", users.LoginHandler)
+	r.Post("/v1/create", auth.AuthCreateTask)
+	r.Post("/auth", auth.ProtectedRoute)
 
 	return r
 }

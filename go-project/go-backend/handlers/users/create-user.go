@@ -55,8 +55,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
-	coll := client.Database("users").Collection("existing_users")
+	coll := client.Database(os.Getenv("USER_DB")).Collection(os.Getenv("USER_COLLECTION"))
 
+	//Insert user to database
 	result, err := coll.InsertOne(context.TODO(), user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

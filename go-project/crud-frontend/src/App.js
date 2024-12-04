@@ -4,6 +4,7 @@ import TaskList from "./components/TaskList";
 import CreateTask from "./components/CreateTask";
 import CreateAccount from "./components/signup";
 import NavBar from "./components/nav/navbar";
+import LoginPage from "./components/LoginPage";
 
 const App = () => {
   return (
@@ -17,10 +18,10 @@ const App = () => {
             path="/create"
             element={<CreateTask/>}
           />
+          <Route path="users/login" element={<LoginPage/>}/>
           <Route path="*" element={<h2>Page Not Found</h2>} />
         </Routes>  
       </main>
-      
     </div>
   );
 };

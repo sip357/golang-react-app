@@ -17,6 +17,11 @@ const menuData = [
     href: "/users/signup",
     icon: <FaUserPlus />,
   },
+  {
+    name: "Login",
+    href: "/users/login",
+    icon: <FaUserPlus />,
+  }
 ];
 
 export default menuData;

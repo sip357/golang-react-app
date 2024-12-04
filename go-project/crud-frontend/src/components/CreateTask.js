@@ -12,18 +12,12 @@ const CreateTask = () => {
     
     const task = { title, content };
     try {
-      const response = await createTask(task); // API call to create task
-      
-      // Check if response indicates success
-      if (response.status === 201) {
+      await createTask(task); // API call to create task
         // Task successfully created
         alert("Task created successfully!");
         setTitle("");
         setContent("");
         navigate("/");
-      } else {
-        alert(`Error: ${response.statusText}`);
-      }
     } catch (error) {
       console.error("An error occurred:", error);
       alert("Failed to create task. Please try again.");

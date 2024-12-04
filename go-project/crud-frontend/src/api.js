@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080"; // Go backend URL
+const API_URL = "https://localhost:443"; // Go backend URL
 
 export const fetchTasks = async () => {
   const response = await axios.get(`${API_URL}/`);
@@ -22,12 +22,20 @@ export const deleteTask = async (id) => {
   return response.data;
 };
 
-export const loginHandler = async (user) => {
-  const response = await axios.post(`${API_URL}/users/login`, user);
-  return response.data;
+export const loginHandler = async (user) => { 
+  const response = await axios.post(`${API_URL}/users/login`, user,
+   { withCredentials: true }); 
+   return response.data; 
 };
 
 export const signUp = async (newUser) => {
   const response = await axios.post(`${API_URL}/users/signUp`, newUser);
   return response.data;
 };
+
+export const protectedRoute = async () => {
+  const response = await axios.get(`${API_URL}/users/protected`, {
+    withCredentials: true, // Ensures cookies are sent with the request
+  });
+  return response.data;
+}
