@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import TaskCard from "../components/taskUI/taskDisplay"; // Import the TaskCard component
-import { fetchTasks, deleteTask, updateTask, protectedRoute } from "../api"; // Import necessary API functions
+import TaskCard from "../taskUI/taskDisplay"; // Import the TaskCard component
+import { fetchTasks, deleteTask, updateTask, protectedRoute } from "../../api"; // Import necessary API functions
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);

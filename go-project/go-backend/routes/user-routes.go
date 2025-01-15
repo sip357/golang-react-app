@@ -2,6 +2,7 @@ package routes
 
 import (
 	"go-project/go-backend/handlers/users"
+	"go-project/go-backend/middleware"
 	"net/http"
 
 	"github.com/go-chi/chi/v5" // Chi Router package
@@ -25,7 +26,7 @@ func UserRoutes() http.Handler {
 	r.Use(c.Handler)
 
 	// Define routes with their respective handlers
-	r.Post("/users/signUp", users.CreateUser)
+	r.With(middleware.APIKeyMiddleware).Post("/users/signUp", users.CreateUser)
 	r.Post("/users/login", users.LoginHandler)
 
 	return r

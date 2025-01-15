@@ -48,3 +48,31 @@ func ValidateJWT(tokenString string) (jwt.MapClaims, error) {
 
 	return nil, errors.New("invalid token")
 }
+
+// AuthError represents different types of authentication errors.
+var (
+	ErrNoToken       = errors.New("no token found")
+	ErrInvalidToken  = errors.New("token is not valid")
+	ErrTokenExpired  = errors.New("token has expired")
+)
+
+// AuthenticateToken validates a JWT token, checks expiration, and returns claims if valid.
+func AuthenticateToken(token string) (map[string]interface{}, error) {
+	// Validate the token
+	claims, err := ValidateJWT(token)
+	if err != nil {
+		return nil, ErrInvalidToken
+	}
+
+	// Check if the token has expired
+	if exp, ok := claims["exp"].(float64); ok {
+		expiryTime := int64(exp)
+		if expiryTime < time.Now().Unix() {
+			return nil, ErrTokenExpired
+		}
+	} else {
+		return nil, ErrInvalidToken
+	}
+
+	return claims, nil
+}

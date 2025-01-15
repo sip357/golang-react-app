@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { loginHandler, protectedRoute } from "../api";
+import { loginHandler, protectedRoute } from "../../api";
 import { useNavigate} from "react-router-dom";
 
 export default function LoginPage() {

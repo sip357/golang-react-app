@@ -1,10 +1,10 @@
 import React from "react";
 import { Routes, Route} from "react-router-dom";
-import TaskList from "./components/TaskList";
-import CreateTask from "./components/CreateTask";
-import CreateAccount from "./components/signup";
+import TaskList from "./components/taskOps/TaskList";
+import CreateTask from "./components/taskOps/CreateTask";
+import CreateAccount from "./components/userOps/signup";
 import NavBar from "./components/nav/navbar";
-import LoginPage from "./components/LoginPage";
+import LoginPage from "./components/userOps/LoginPage";
 
 const App = () => {
   return (

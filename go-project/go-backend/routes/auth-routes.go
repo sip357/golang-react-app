@@ -26,7 +26,7 @@ func AuthRoutes() http.Handler {
 	r.Use(c.Handler)
 
 	// Define routes with their respective handlers
-	r.Post("/v1/create", auth.AuthCreateTask)
+	r.Post("/v1/tasks", auth.AuthCreateTask)
 	r.Post("/auth", auth.ProtectedRoute)
 
 	return r
