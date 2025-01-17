@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	services "go-project/go-backend/task-service" //Task Services
+	services "go-project/go-backend/services" //Task Services
 )
 
 func DeleteTask(w http.ResponseWriter, r *http.Request) {

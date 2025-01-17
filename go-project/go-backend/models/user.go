@@ -18,5 +18,5 @@ type User struct {
 
 type LoginRequest struct {
 	Username string `json:"username"`
-	Password string `json:"password"`
+	Password string `json:"password_hash"`
 }

@@ -1,20 +1,17 @@
 package users
 
 import (
-	"context"
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"go-project/go-backend/models"
-	services "go-project/go-backend/task-service"
+	services "go-project/go-backend/services"
+	"go-project/go-backend/utils"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -41,28 +38,35 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println("No .env file found")
 	}
 
-	// Set up MongoDB connection
-	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-	opts := options.Client().ApplyURI(os.Getenv("MONGO_URI")).SetServerAPIOptions(serverAPI)
-
-	client, err := mongo.Connect(context.TODO(), opts)
+	//Set up MySQL connection
+	db, err := utils.Connect()
 	if err != nil {
 		http.Error(w, "Failed to connect to database", http.StatusInternalServerError)
 		return
 	}
-	defer client.Disconnect(context.TODO())
 
-	coll := client.Database(os.Getenv("USER_DB")).Collection(os.Getenv("USER_COLLECTION"))
+	// Close the database connection when the function completes
+	defer db.Close()
 
-	// Find the user by username
-	filter := bson.D{{Key: "username", Value: user.Username}}
+	//Find user by username
+	query := "SELECT id, username, email, password_hash, is_active FROM users WHERE username = ?"
+	row := db.QueryRow(query, user.Username)
+	log.Println("Query Executed. Username:", user.Username) //Delete in production
+
+	if row.Err() != nil {
+		http.Error(w, "Couldn't select row", http.StatusUnauthorized)
+		return
+	}
+
+	// Decode the user from the database
 	var existingUser models.User
-	err = coll.FindOne(context.TODO(), filter).Decode(&existingUser)
+	err = row.Scan(&existingUser.ID, &existingUser.Username, &existingUser.Email, &existingUser.Password, &existingUser.IsActive)
+	log.Println("User decoded", existingUser) //Delete in production
 	if err != nil {
-		if err == mongo.ErrNoDocuments {
-			http.Error(w, "Incorrect username or password", http.StatusUnauthorized)
+		if err == sql.ErrNoRows {
+			http.Error(w, "User not found", http.StatusUnauthorized)
 		} else {
-			http.Error(w, "Database error", http.StatusInternalServerError)
+			http.Error(w, "Couldn't scan row", http.StatusUnauthorized)
 		}
 		return
 	}
@@ -70,6 +74,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// Compare the provided password with the stored hash
 	err = bcrypt.CompareHashAndPassword([]byte(existingUser.Password), []byte(user.Password))
 	if err != nil {
+		log.Printf("Password comparison failed: %v", err) // Log the error for debugging
 		http.Error(w, "Incorrect username or password", http.StatusUnauthorized)
 		return
 	}
@@ -92,6 +97,14 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		SameSite: http.SameSiteNoneMode,
 	}
 	http.SetCookie(w, cookie)
+
+	//Set is_active to true
+	query = "UPDATE users SET is_active = ? WHERE id = ?"
+	_, err = db.Exec(query, true, existingUser.ID)
+	if err != nil {
+		http.Error(w, "Failed to update user", http.StatusInternalServerError)
+		return
+	}
 
 	// Respond to the client
 	w.WriteHeader(http.StatusOK)

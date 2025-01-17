@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	services "go-project/go-backend/task-service" //Task Services
+	services "go-project/go-backend/services" //Task Services
 )
 
 // Read All Tasks

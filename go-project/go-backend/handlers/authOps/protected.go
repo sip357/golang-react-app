@@ -2,7 +2,7 @@ package auth
 
 import (
 	"fmt"
-	services "go-project/go-backend/task-service"
+	services "go-project/go-backend/services"
 	"net/http"
 	"time"
 )

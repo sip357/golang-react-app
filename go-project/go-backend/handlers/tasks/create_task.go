@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"go-project/go-backend/middleware"            // Middleware
-	"go-project/go-backend/models"                //Task Models
-	services "go-project/go-backend/task-service" //Task Services
+	"go-project/go-backend/models"            //Task Models
+	services "go-project/go-backend/services" //Task Services
 )
 
 // Create Task
@@ -27,9 +26,4 @@ func CreateTask(w http.ResponseWriter, r *http.Request) {
 	task = services.AddTaskService(task)
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(task)
-}
-
-// Apply middleware to the handler
-func CreateTaskHandler() http.Handler {
-	return middleware.APIKeyMiddleware(http.HandlerFunc(CreateTask))
 }

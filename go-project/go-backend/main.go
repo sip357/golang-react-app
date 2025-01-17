@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"go-project/go-backend/routes" // Import routes
-	"go-project/go-backend/utils"  // Import utils
+	// Import utils
 	"log"
 	"net/http"
 	"os"
@@ -16,8 +16,6 @@ import (
 )
 
 func main() {
-	utils.Connect() // Connect to the database
-
 	// Create a new HTTP server instance
 	srv := &http.Server{
 		Addr: ":443",

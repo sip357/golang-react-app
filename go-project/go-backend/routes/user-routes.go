@@ -27,7 +27,7 @@ func UserRoutes() http.Handler {
 
 	// Define routes with their respective handlers
 	r.With(middleware.APIKeyMiddleware).Post("/users/signUp", users.CreateUser)
-	r.Post("/users/login", users.LoginHandler)
+	r.With(middleware.APIKeyMiddleware).Post("/users/login", users.LoginHandler)
 
 	return r
 }

@@ -59,7 +59,5 @@ func Connect() (*sql.DB, error) {
 	if err := db.Ping(); err != nil {
 		return nil, err
 	}
-
-	log.Println("Connected to MySQL database")
 	return db, nil
 }

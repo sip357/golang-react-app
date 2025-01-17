@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"go-project/go-backend/models"                //Task Models
-	services "go-project/go-backend/task-service" //Task Services
+	"go-project/go-backend/models"            //Task Models
+	services "go-project/go-backend/services" //Task Services
 )
 
 // Edit and update task
